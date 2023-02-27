@@ -86,7 +86,7 @@ function App() {
                       options.map((option, index) => {
                         return (
                           <div>
-                          <label style={chosenValues.includes(option) ? styles : {}}>
+                          <label style={submitStatus ? correctValues.includes(option) ? styles_correct : incorrectValues.includes(option) ? styles_incorrect : {} : chosenValues.includes(option) ? styles : {}}>
                           <input 
                               type="radio"
                               id={index}
@@ -106,40 +106,11 @@ function App() {
       </div>
     )
   })
-  const questions1 = data.map((question, question_index) => {
-    const options = question.choices
-    return (
-      <div>
-        <h1>{question["question"]}</h1>
-            <div className="options">
-                    {
-                      options.map((option, index) => {
-                        return (
-                          <div>
-                          <label style={correctValues.includes(option) ? styles_correct : incorrectValues.includes(option) ? styles_incorrect : {}}>
-                          <input 
-                              type="radio"
-                              id={index}
-                              name={question_index}
-                              value={option}
-                              onChange={handleChange}
-                              checked={chosenValues.includes(option)}
-                              
-                          />
-                            {option}
-                            </label>
-                          </div>
-                        )
-                      })
-                    }
-                </div>
-      </div>
-    )
-  })
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-        {submitStatus ? questions1 : questions}
+        {questions}
         <button type='submit'> Submit </button>
       </form>
       {submitStatus ? <h3>Score: {score()}</h3> : <></>}
