@@ -7,6 +7,7 @@ function App() {
   const [chosenOptions, setChosenOptions] = React.useState({});
   const [submitStatus, setSubmitStatus] = React.useState(false);
   const chosenValues = Object.values(chosenOptions);
+  console.log(chosenValues)
   const correctValues = [];
   for (let i = 0; i < data.length; i++) {
     correctValues[i] = data[i]["correct_answer"];
@@ -81,7 +82,7 @@ function App() {
         correct_options_array={correctValues}
         question_index={question_index}
         submitStatus={submitStatus}
-        chosenValues={chosenValues}
+        chosenOptions={chosenOptions}
         handleChange={handleChange}
       />
     );
@@ -91,9 +92,13 @@ function App() {
     <div className="App">
       <form onSubmit={handleSubmit}>
         {questions}
-        <button type="submit"> Submit </button>
+        <div className="button-div">
+          <div className="score-div">
+          {submitStatus ? <h3>Your score is {score()} / 5</h3> : <></>}
+          </div>
+        {submitStatus ? <button className="submit-button" type="none" id="restart"> Play again </button> : <button type="submit" className="submit-button"> Check answers </button>}
+        </div>
       </form>
-      {submitStatus ? <h3>Score: {score()}</h3> : <></>}
     </div>
   );
 }

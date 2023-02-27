@@ -5,22 +5,25 @@ export default function Question({
     correct_options_array,
     question_index,
     submitStatus,
-    chosenValues,
+    chosenOptions,
     handleChange,
 }) {
     const styles = {
-        backgroundColor: "lightblue",
+        backgroundColor: "#D6DBF5",
+        borderColor: "#D6DBF5",
     };
     const styles_correct = {
-        backgroundColor: "lightgreen",
+        backgroundColor: "#94D7A2",
+        borderColor: "#94D7A2"
     };
     const styles_incorrect = {
-        backgroundColor: "red",
+        backgroundColor: "#F8BCBC",
+        borderColor: "#F8BCBC"
     };
 
     return (
-        <div>
-        <h1>{question}</h1>
+        <div className="question-div">
+        <h2>{question}</h2>
         <div className="options">
             {options_array.map((option, index) => {
             return (
@@ -30,10 +33,10 @@ export default function Question({
                     submitStatus
                         ? option === correct_options_array[question_index]
                         ? styles_correct
-                        : chosenValues[question_index] === option
+                        : chosenOptions[question_index] === option
                         ? styles_incorrect
                         : {}
-                        : chosenValues[question_index] === option
+                        : chosenOptions[question_index] === option
                         ? styles
                         : {}
                     }
@@ -44,7 +47,7 @@ export default function Question({
                     name={question_index}
                     value={option}
                     onChange={handleChange}
-                    checked={chosenValues[question_index] === option}
+                    checked={chosenOptions[question_index] === option}
                     />
                     {option}
                 </label>
@@ -52,6 +55,7 @@ export default function Question({
             );
             })}
         </div>
+        <div className="line-div"></div>
         </div>
     );
 }

@@ -1,3 +1,14 @@
+body {
+    font-family: Karla, Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.App {
+    max-width: 50vw;
+}
 .options label input {
     display: none;
 }
@@ -7,7 +18,49 @@
 }
 .options label {
     /* background-color: aqua; */
-    padding: 10px 10px;
+    padding:5px 20px;
     border-radius: 10px;
     cursor: pointer;
+    border: 1.5px #293264 solid;
+    color: #293264;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 30px;
+
 }
+.options label:hover {
+    box-shadow:  7px 5px 10px #888888;
+}
+.question-div h2 {
+    font-size: 18px;
+    color: #293264;
+    margin-bottom: 30px;
+}
+.line-div {
+    width: 100%;
+    height: 0.5px;
+    background-color:#293264;
+    margin-top: 20px;
+}
+.button-div {
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.submit-button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 15px;
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    cursor: pointer;
+    transition: transform 100ms;
+    font-size: 15px;
+    font-weight: 500;
+}
+.submit-button:hover {
+    transform: scale(1.1);
+}
+
