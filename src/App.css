@@ -1,0 +1,13 @@
+.options label input {
+    display: none;
+}
+.options {
+    display: flex;
+    column-gap: 20px;
+}
+.options label {
+    /* background-color: aqua; */
+    padding: 10px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
