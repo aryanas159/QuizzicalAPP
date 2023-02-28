@@ -1,51 +1,65 @@
-import React from "react"
-export default function Question(props) {
-    const [option, setOption] = React.useState("")
-    const handleChange = (event) => {
-        setOption(event.target.value)
+import React from "react";
+export default function Question({
+    question,
+    options_array,
+    correct_options_array,
+    question_index,
+    submitStatus,
+    chosenOptions,
+    handleChange,
+}) {
+    const parse_string = (str) => {
+        const parser = new DOMParser()
+        return parser.parseFromString(`<!doctype html><body>${str}`, 'text/html').body.textContent;
     }
-    const onSubmit = () => {
-        alert("You have chosen ", option)
-    }
+    const styles = {
+        backgroundColor: "#D6DBF5",
+        borderColor: "#D6DBF5",
+    };
+    const styles_correct = {
+        backgroundColor: "#94D7A2",
+        borderColor: "#94D7A2"
+    };
+    const styles_incorrect = {
+        backgroundColor: "#F8BCBC",
+        borderColor: "#F8BCBC"
+    };
+
     return (
-        <div className="question">
-            <form onSubmit={onSubmit}>
-                <h1>{props.question}</h1>
-                <div className="options">
-                    <input 
-                        type="radio"
-                        id="option1"
-                        name={props.options[0]}
-                        value={props.options[0]}
-                    
+        <div className="question-div">
+        <h2>{parse_string(question)}</h2>
+        <div className="options">
+            {options_array.map((option, index) => {
+            return (
+                <div>
+                <label
+                    style={
+                    submitStatus
+                        ? option === correct_options_array[question_index]
+                        ? styles_correct
+                        : chosenOptions[question_index] === option
+                        ? styles_incorrect
+                        : {}
+                        : chosenOptions[question_index] === option
+                        ? styles
+                        : {}
+                    }
+                >
+                    <input
+                    type="radio"
+                    id={index}
+                    name={question_index}
+                    value={option}
+                    onChange={handleChange}
+                    checked={chosenOptions[question_index] === option}
                     />
-                    <label htmlFor="option1">{props.options[0]}</label>
-                    <input 
-                        type="radio"
-                        id="option2"
-                        name={props.options[1]}
-                        value={props.options[1]}
-                    
-                    />
-                    <label htmlFor="option2">{props.options[1]}</label>
-                    <input 
-                        type="radio"
-                        id="option3"
-                        name={props.options[2]}
-                        value={props.options[2]}
-                    
-                    />
-                    <label htmlFor="option3">{props.options[2]}</label>
-                    <input 
-                        type="radio"
-                        id="option4"
-                        name={props.options[3]}
-                        value={props.options[3]}
-                    
-                    />
-                    <label htmlFor="option4">{props.options[3]}</label>
+                    {parse_string(option)}
+                </label>
                 </div>
-            </form>
-            </div>
-    )
+            );
+            })}
+        </div>
+        <div className="line-div"></div>
+        </div>
+    );
 }
