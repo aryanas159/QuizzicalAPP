@@ -8,6 +8,10 @@ export default function Question({
     chosenOptions,
     handleChange,
 }) {
+    const parse_string = (str) => {
+        const parser = new DOMParser()
+        return parser.parseFromString(`<!doctype html><body>${str}`, 'text/html').body.textContent;
+    }
     const styles = {
         backgroundColor: "#D6DBF5",
         borderColor: "#D6DBF5",
@@ -23,7 +27,7 @@ export default function Question({
 
     return (
         <div className="question-div">
-        <h2>{question}</h2>
+        <h2>{parse_string(question)}</h2>
         <div className="options">
             {options_array.map((option, index) => {
             return (
@@ -49,7 +53,7 @@ export default function Question({
                     onChange={handleChange}
                     checked={chosenOptions[question_index] === option}
                     />
-                    {option}
+                    {parse_string(option)}
                 </label>
                 </div>
             );

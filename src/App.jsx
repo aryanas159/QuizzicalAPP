@@ -6,22 +6,14 @@ function App() {
   const [data, setData] = React.useState([]);
   const [chosenOptions, setChosenOptions] = React.useState({});
   const [submitStatus, setSubmitStatus] = React.useState(false);
-  const chosenValues = Object.values(chosenOptions);
-  console.log(chosenValues)
   const correctValues = [];
   for (let i = 0; i < data.length; i++) {
     correctValues[i] = data[i]["correct_answer"];
   }
-  const incorrectValues = [];
-  for (let i = 0; i < correctValues.length; i++) {
-    if (correctValues[i] !== chosenValues[i]) {
-      incorrectValues.push(chosenValues[i]);
-    }
-  }
   const score = () => {
     let score = 0;
-    for (let i = 0; i < chosenValues.length; i++) {
-      if (chosenValues[i] === correctValues[i]) {
+    for (let i = 0; i < correctValues.length; i++) {
+      if (chosenOptions[i] === correctValues[i]) {
         score++;
       }
     }
@@ -53,14 +45,14 @@ function App() {
   };
 
   React.useEffect(() => {
+    console.log("use_state")
     fetch(
-      "https://opentdb.com/api.php?amount=5&category=18&difficulty=medium&type=multiple"
+      "https://opentdb.com/api.php?amount=5&category=31&difficulty=medium&type=multiple"
     )
       .then((response) => response.json())
       .then((data) => {
-        setData(data["results"]);
-        setData((prev) => {
-          return prev.map((obj) => {
+        setData(() => {
+          return data["results"].map((obj) => {
             return {
               ...obj,
               choices: optionsArray(
@@ -96,7 +88,7 @@ function App() {
           <div className="score-div">
           {submitStatus ? <h3>Your score is {score()} / 5</h3> : <></>}
           </div>
-        {submitStatus ? <button className="submit-button" type="none" id="restart"> Play again </button> : <button type="submit" className="submit-button"> Check answers </button>}
+          {submitStatus ? <button className="submit-button" onClick={() => location.reload()}> Play again </button> : <button type="submit" className="submit-button"> Check answers </button>}
         </div>
       </form>
     </div>
